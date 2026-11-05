@@ -83,4 +83,11 @@ describe("Jeu", () => {
 
     expect(jeu.score()).toBe("Victoire Bob");
   });
+
+  it("on ne peut plus marquer de point une fois le match gagné", () => {
+    const jeu = new Jeu("Alice", "Bob");
+    marquer(jeu, "Alice", 4);
+
+    expect(() => jeu.pointPour("Bob")).toThrow("Le match est terminé");
+  });
 });
