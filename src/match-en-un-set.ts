@@ -33,7 +33,7 @@ export class MatchEnUnSet {
     } else if (vainqueurDuJeu === this.joueur2) {
       this.jeuxJoueur2++;
     }
-    if (vainqueurDuJeu) {
+    if (vainqueurDuJeu && !this.vainqueur()) {
       this.jeuEnCours = this.nouveauJeu();
     }
   }
