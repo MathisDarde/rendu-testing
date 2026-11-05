@@ -1,21 +1,6 @@
 import { describe, expect, it } from "vitest";
-import type { Classement } from "../src/classement";
 import { Jeu } from "../src/jeu";
-
-// Dummy : le constructeur exige un classement, mais ces tests ne portent que
-// sur le score et le classement n'y joue aucun rôle. Un dummy suffit : pas
-// besoin d'un stub (rien à renvoyer) ni d'un spy (aucun appel à vérifier).
-class ClassementFactice implements Classement {
-  enregistrer(): void {}
-}
-
-class ClassementEspion implements Classement {
-  readonly enregistrements: { vainqueur: string; perdant: string }[] = [];
-
-  enregistrer(vainqueur: string, perdant: string): void {
-    this.enregistrements.push({ vainqueur, perdant });
-  }
-}
+import { ClassementEspion, ClassementFactice } from "./doubles/classement";
 
 function marquer(jeu: Jeu, joueur: string, nombreDePoints: number): void {
   for (let i = 0; i < nombreDePoints; i++) {
@@ -23,6 +8,9 @@ function marquer(jeu: Jeu, joueur: string, nombreDePoints: number): void {
   }
 }
 
+// Dummy : le constructeur exige un classement, mais ces tests ne portent que
+// sur le score et le classement n'y joue aucun rôle. Un dummy suffit : pas
+// besoin d'un stub (rien à renvoyer) ni d'un spy (aucun appel à vérifier).
 describe("Jeu", () => {
   it("le score initial est Zéro-Zéro", () => {
     const jeu = new Jeu("Alice", "Bob", new ClassementFactice());
