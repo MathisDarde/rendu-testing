@@ -39,4 +39,19 @@ describe("Jeu", () => {
 
     expect(jeu.score()).toBe("Quarante-Trente");
   });
+
+  it.each([
+    ["Quinze-A", 1],
+    ["Trente-A", 2],
+  ])(
+    "à égalité de points, le score s'annonce « X-A » : %s",
+    (scoreAttendu, points) => {
+      const jeu = new Jeu("Alice", "Bob");
+
+      marquer(jeu, "Alice", points);
+      marquer(jeu, "Bob", points);
+
+      expect(jeu.score()).toBe(scoreAttendu);
+    },
+  );
 });
