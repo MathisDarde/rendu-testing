@@ -16,8 +16,10 @@ export class Jeu {
     }
     if (joueur === this.joueur1) {
       this.pointsJoueur1++;
-    } else {
+    } else if (joueur === this.joueur2) {
       this.pointsJoueur2++;
+    } else {
+      throw new Error(`Joueur inconnu : ${joueur}`);
     }
   }
 
