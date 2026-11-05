@@ -19,11 +19,9 @@ export class Jeu {
   }
 
   score(): string {
-    if (this.pointsJoueur1 > QUARANTE) {
-      return `Victoire ${this.joueur1}`;
-    }
-    if (this.pointsJoueur2 > QUARANTE) {
-      return `Victoire ${this.joueur2}`;
+    const vainqueur = this.vainqueur();
+    if (vainqueur) {
+      return `Victoire ${vainqueur}`;
     }
     if (this.pointsJoueur1 === QUARANTE && this.pointsJoueur2 === QUARANTE) {
       return "Égalité";
@@ -32,5 +30,15 @@ export class Jeu {
       return `${ANNONCES[this.pointsJoueur1]}-A`;
     }
     return `${ANNONCES[this.pointsJoueur1]}-${ANNONCES[this.pointsJoueur2]}`;
+  }
+
+  private vainqueur(): string | undefined {
+    if (this.pointsJoueur1 > QUARANTE) {
+      return this.joueur1;
+    }
+    if (this.pointsJoueur2 > QUARANTE) {
+      return this.joueur2;
+    }
+    return undefined;
   }
 }
