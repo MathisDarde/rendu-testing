@@ -23,6 +23,9 @@ export class MatchEnUnSet {
   }
 
   pointPour(joueur: string): void {
+    if (this.vainqueur()) {
+      throw new Error("Le match est terminé");
+    }
     this.jeuEnCours.pointPour(joueur);
     const vainqueurDuJeu = this.jeuEnCours.vainqueur();
     if (vainqueurDuJeu === this.joueur1) {
