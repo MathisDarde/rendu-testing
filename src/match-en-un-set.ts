@@ -1,10 +1,10 @@
 import type { Classement } from "./classement";
 import { Jeu } from "./jeu";
 
-// Les jeux d'un match ne sont pas envoyés au classement du tournoi :
-// seul le résultat du match l'est.
 const JEUX_POUR_GAGNER = 4;
 
+// Les jeux d'un match ne sont pas envoyés au classement du tournoi :
+// seul le résultat du match l'est.
 class AucunClassement implements Classement {
   enregistrer(): void {}
 }
