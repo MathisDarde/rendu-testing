@@ -11,6 +11,9 @@ export class Jeu {
   ) {}
 
   pointPour(joueur: string): void {
+    if (this.vainqueur()) {
+      throw new Error("Le match est terminé");
+    }
     if (joueur === this.joueur1) {
       this.pointsJoueur1++;
     } else {
