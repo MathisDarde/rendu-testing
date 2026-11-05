@@ -63,4 +63,14 @@ describe("Jeu", () => {
 
     expect(jeu.score()).toBe("Égalité");
   });
+
+  it("le joueur qui marque à Quarante gagne le match", () => {
+    const jeu = new Jeu("Alice", "Bob");
+
+    marquer(jeu, "Alice", 3);
+    marquer(jeu, "Bob", 1);
+    jeu.pointPour("Alice");
+
+    expect(jeu.score()).toBe("Victoire Alice");
+  });
 });
