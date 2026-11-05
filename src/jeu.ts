@@ -1,3 +1,5 @@
+import type { Classement } from "./classement";
+
 const ANNONCES = ["Zéro", "Quinze", "Trente", "Quarante"];
 const QUARANTE = 3;
 
@@ -8,6 +10,7 @@ export class Jeu {
   constructor(
     private readonly joueur1: string,
     private readonly joueur2: string,
+    private readonly classement: Classement,
   ) {}
 
   pointPour(joueur: string): void {
