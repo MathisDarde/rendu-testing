@@ -10,6 +10,7 @@ class AucunClassement implements Classement {
 export class MatchEnUnSet {
   private jeuEnCours: Jeu;
   private jeuxJoueur1 = 0;
+  private jeuxJoueur2 = 0;
 
   constructor(
     private readonly joueur1: string,
@@ -21,8 +22,13 @@ export class MatchEnUnSet {
 
   pointPour(joueur: string): void {
     this.jeuEnCours.pointPour(joueur);
-    if (this.jeuEnCours.vainqueur() === this.joueur1) {
+    const vainqueurDuJeu = this.jeuEnCours.vainqueur();
+    if (vainqueurDuJeu === this.joueur1) {
       this.jeuxJoueur1++;
+    } else if (vainqueurDuJeu === this.joueur2) {
+      this.jeuxJoueur2++;
+    }
+    if (vainqueurDuJeu) {
       this.jeuEnCours = new Jeu(this.joueur1, this.joueur2, new AucunClassement());
     }
   }
@@ -32,6 +38,6 @@ export class MatchEnUnSet {
   }
 
   jeux(): string {
-    return `${this.jeuxJoueur1}-0`;
+    return `${this.jeuxJoueur1}-${this.jeuxJoueur2}`;
   }
 }
