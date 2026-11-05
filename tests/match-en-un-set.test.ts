@@ -58,4 +58,14 @@ describe("Match en un set", () => {
 
     expect(match.score()).toBe("2-1, Trente-Quinze");
   });
+
+  it("le premier joueur à 4 jeux gagne le match, sans 2 jeux d'écart", () => {
+    const match = new MatchEnUnSet("Alice", "Bob", new ClassementFactice());
+
+    gagnerDesJeux(match, "Alice", 3);
+    gagnerDesJeux(match, "Bob", 3);
+    gagnerDesJeux(match, "Alice", 1);
+
+    expect(match.score()).toBe("Victoire Alice 4-3");
+  });
 });
