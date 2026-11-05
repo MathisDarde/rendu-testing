@@ -1,5 +1,8 @@
+const ANNONCES = ["Zéro", "Quinze", "Trente"];
+
 export class Jeu {
   private pointsJoueur1 = 0;
+  private pointsJoueur2 = 0;
 
   constructor(
     private readonly joueur1: string,
@@ -7,13 +10,14 @@ export class Jeu {
   ) {}
 
   pointPour(joueur: string): void {
-    this.pointsJoueur1++;
+    if (joueur === this.joueur1) {
+      this.pointsJoueur1++;
+    } else {
+      this.pointsJoueur2++;
+    }
   }
 
   score(): string {
-    if (this.pointsJoueur1 === 1) {
-      return "Quinze-Zéro";
-    }
-    return "Zéro-Zéro";
+    return `${ANNONCES[this.pointsJoueur1]}-${ANNONCES[this.pointsJoueur2]}`;
   }
 }
