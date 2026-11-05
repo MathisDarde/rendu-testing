@@ -1,20 +1,27 @@
 import { describe, expect, it } from "vitest";
 import { MatchEnUnSet } from "../src/match-en-un-set";
-import { ClassementFactice } from "./doubles/classement";
+import { ClassementEspion, ClassementFactice } from "./doubles/classement";
 
-function marquer(match: MatchEnUnSet, joueur: string, nombreDePoints: number): void {
+function marquer(
+  match: MatchEnUnSet,
+  joueur: string,
+  nombreDePoints: number,
+): void {
   for (let i = 0; i < nombreDePoints; i++) {
     match.pointPour(joueur);
   }
 }
 
-function gagnerDesJeux(match: MatchEnUnSet, joueur: string, nombreDeJeux: number): void {
+function gagnerDesJeux(
+  match: MatchEnUnSet,
+  joueur: string,
+  nombreDeJeux: number,
+): void {
   marquer(match, joueur, 4 * nombreDeJeux);
 }
 
 // Dummy : le constructeur exige un classement, mais ces tests ne portent que
-// sur le score du match et le classement n'y joue aucun rôle. Un dummy suffit :
-// pas de valeur à renvoyer (stub) ni d'appel à vérifier (spy).
+// sur le score du match et le classement n'y joue aucun rôle. Un dummy suffit
 describe("Match en un set", () => {
   it("au début du match, aucun joueur n'a de jeu", () => {
     const match = new MatchEnUnSet("Alice", "Bob", new ClassementFactice());
@@ -91,5 +98,22 @@ describe("Match en un set", () => {
     gagnerDesJeux(match, "Alice", 4);
 
     expect(match.scoreDuJeu()).toBe("Victoire Alice");
+  });
+});
+
+describe("Match en un set et classement du tournoi", () => {
+  // Spy : on vérifie après coup ce que le match a envoyé au classement, sur
+  // tout un match de plusieurs jeux. enregistrer() ne renvoie rien, donc un
+  // stub n'apporterait rien
+  it("le classement enregistre le résultat du match, pas celui de chaque jeu", () => {
+    const classement = new ClassementEspion();
+    const match = new MatchEnUnSet("Alice", "Bob", classement);
+
+    gagnerDesJeux(match, "Alice", 1);
+    gagnerDesJeux(match, "Bob", 4);
+
+    expect(classement.enregistrements).toEqual([
+      { vainqueur: "Bob", perdant: "Alice" },
+    ]);
   });
 });

@@ -9,8 +9,7 @@ function marquer(jeu: Jeu, joueur: string, nombreDePoints: number): void {
 }
 
 // Dummy : le constructeur exige un classement, mais ces tests ne portent que
-// sur le score et le classement n'y joue aucun rôle. Un dummy suffit : pas
-// besoin d'un stub (rien à renvoyer) ni d'un spy (aucun appel à vérifier).
+// sur le score et le classement n'y joue aucun rôle. Un dummy suffit
 describe("Jeu", () => {
   it("le score initial est Zéro-Zéro", () => {
     const jeu = new Jeu("Alice", "Bob", new ClassementFactice());
@@ -104,8 +103,7 @@ describe("Jeu", () => {
 
 describe("Jeu et classement du tournoi", () => {
   // Spy : on veut vérifier, après le match, ce que le jeu a envoyé au
-  // classement. enregistrer() ne renvoie rien, donc un stub n'apporterait rien ;
-  // le spy note les appels et on fait les assertions à la fin, dans le test.
+  // classement. enregistrer() ne renvoie rien, donc un stub n'apporterait rien
   it("à la fin du match, le résultat est enregistré avec le vainqueur en premier", () => {
     const classement = new ClassementEspion();
     const jeu = new Jeu("Alice", "Bob", classement);
@@ -119,8 +117,7 @@ describe("Jeu et classement du tournoi", () => {
   });
 
   // Spy : ici on vérifie une absence d'appel. Le spy garde la trace de tous
-  // les appels reçus, ce qui permet de constater qu'il n'y en a eu aucun ;
-  // un dummy ne permettrait pas de le vérifier.
+  // les appels reçus, ce qui permet de constater qu'il n'y en a eu aucun
   it("le résultat n'est pas enregistré tant que le match n'est pas fini", () => {
     const classement = new ClassementEspion();
     const jeu = new Jeu("Alice", "Bob", classement);
@@ -132,8 +129,7 @@ describe("Jeu et classement du tournoi", () => {
   });
 
   // Spy : on compte les appels reçus par le classement pendant tout le match,
-  // y compris quand on tente de marquer après la victoire. Seul un double qui
-  // enregistre les appels (spy) permet de vérifier qu'il n'y en a qu'un.
+  // y compris quand on tente de marquer après la victoire
   it("le résultat n'est enregistré qu'une seule fois", () => {
     const classement = new ClassementEspion();
     const jeu = new Jeu("Alice", "Bob", classement);
