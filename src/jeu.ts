@@ -24,6 +24,12 @@ export class Jeu {
     } else {
       throw new Error(`Joueur inconnu : ${joueur}`);
     }
+
+    const vainqueur = this.vainqueur();
+    if (vainqueur) {
+      const perdant = vainqueur === this.joueur1 ? this.joueur2 : this.joueur1;
+      this.classement.enregistrer(vainqueur, perdant);
+    }
   }
 
   score(): string {
