@@ -11,4 +11,12 @@ describe("Match en un set", () => {
 
     expect(match.jeux()).toBe("0-0");
   });
+
+  it("le score du jeu en cours suit les points marqués", () => {
+    const match = new MatchEnUnSet("Alice", "Bob", new ClassementFactice());
+
+    match.pointPour("Alice");
+
+    expect(match.scoreDuJeu()).toBe("Quinze-Zéro");
+  });
 });
