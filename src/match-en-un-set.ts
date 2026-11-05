@@ -39,6 +39,9 @@ export class MatchEnUnSet {
     if (this.jeuxJoueur1 === JEUX_POUR_GAGNER) {
       return `Victoire ${this.joueur1} ${this.jeux()}`;
     }
+    if (this.jeuxJoueur2 === JEUX_POUR_GAGNER) {
+      return `Victoire ${this.joueur2} ${this.jeuxJoueur2}-${this.jeuxJoueur1}`;
+    }
     return `${this.jeux()}, ${this.scoreDuJeu()}`;
   }
 
