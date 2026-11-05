@@ -3,6 +3,8 @@ import { Jeu } from "./jeu";
 
 // Les jeux d'un match ne sont pas envoyés au classement du tournoi :
 // seul le résultat du match l'est.
+const JEUX_POUR_GAGNER = 4;
+
 class AucunClassement implements Classement {
   enregistrer(): void {}
 }
@@ -34,6 +36,9 @@ export class MatchEnUnSet {
   }
 
   score(): string {
+    if (this.jeuxJoueur1 === JEUX_POUR_GAGNER) {
+      return `Victoire ${this.joueur1} ${this.jeux()}`;
+    }
     return `${this.jeux()}, ${this.scoreDuJeu()}`;
   }
 
