@@ -46,7 +46,7 @@ export class Jeu {
     return `${ANNONCES[this.pointsJoueur1]}-${ANNONCES[this.pointsJoueur2]}`;
   }
 
-  private vainqueur(): string | undefined {
+  vainqueur(): string | undefined {
     if (this.pointsJoueur1 > QUARANTE) {
       return this.joueur1;
     }
