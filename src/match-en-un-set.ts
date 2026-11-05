@@ -33,7 +33,10 @@ export class MatchEnUnSet {
     } else if (vainqueurDuJeu === this.joueur2) {
       this.jeuxJoueur2++;
     }
-    if (vainqueurDuJeu && !this.vainqueur()) {
+    const vainqueurDuMatch = this.vainqueur();
+    if (vainqueurDuMatch) {
+      this.classement.enregistrer(vainqueurDuMatch.nom, vainqueurDuMatch.perdant);
+    } else if (vainqueurDuJeu) {
       this.jeuEnCours = this.nouveauJeu();
     }
   }
@@ -55,13 +58,23 @@ export class MatchEnUnSet {
   }
 
   private vainqueur():
-    | { nom: string; jeux: number; jeuxAdversaire: number }
+    | { nom: string; perdant: string; jeux: number; jeuxAdversaire: number }
     | undefined {
     if (this.jeuxJoueur1 === JEUX_POUR_GAGNER) {
-      return { nom: this.joueur1, jeux: this.jeuxJoueur1, jeuxAdversaire: this.jeuxJoueur2 };
+      return {
+        nom: this.joueur1,
+        perdant: this.joueur2,
+        jeux: this.jeuxJoueur1,
+        jeuxAdversaire: this.jeuxJoueur2,
+      };
     }
     if (this.jeuxJoueur2 === JEUX_POUR_GAGNER) {
-      return { nom: this.joueur2, jeux: this.jeuxJoueur2, jeuxAdversaire: this.jeuxJoueur1 };
+      return {
+        nom: this.joueur2,
+        perdant: this.joueur1,
+        jeux: this.jeuxJoueur2,
+        jeuxAdversaire: this.jeuxJoueur1,
+      };
     }
     return undefined;
   }
