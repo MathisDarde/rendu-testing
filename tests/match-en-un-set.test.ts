@@ -47,4 +47,15 @@ describe("Match en un set", () => {
 
     expect(match.jeux()).toBe("1-2");
   });
+
+  it("pendant le match, le score donne les jeux puis le score du jeu en cours", () => {
+    const match = new MatchEnUnSet("Alice", "Bob", new ClassementFactice());
+
+    gagnerDesJeux(match, "Alice", 2);
+    gagnerDesJeux(match, "Bob", 1);
+    marquer(match, "Alice", 2);
+    marquer(match, "Bob", 1);
+
+    expect(match.score()).toBe("2-1, Trente-Quinze");
+  });
 });
