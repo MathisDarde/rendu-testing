@@ -36,11 +36,9 @@ export class MatchEnUnSet {
   }
 
   score(): string {
-    if (this.jeuxJoueur1 === JEUX_POUR_GAGNER) {
-      return `Victoire ${this.joueur1} ${this.jeux()}`;
-    }
-    if (this.jeuxJoueur2 === JEUX_POUR_GAGNER) {
-      return `Victoire ${this.joueur2} ${this.jeuxJoueur2}-${this.jeuxJoueur1}`;
+    const vainqueur = this.vainqueur();
+    if (vainqueur) {
+      return `Victoire ${vainqueur.nom} ${vainqueur.jeux}-${vainqueur.jeuxAdversaire}`;
     }
     return `${this.jeux()}, ${this.scoreDuJeu()}`;
   }
@@ -51,6 +49,18 @@ export class MatchEnUnSet {
 
   jeux(): string {
     return `${this.jeuxJoueur1}-${this.jeuxJoueur2}`;
+  }
+
+  private vainqueur():
+    | { nom: string; jeux: number; jeuxAdversaire: number }
+    | undefined {
+    if (this.jeuxJoueur1 === JEUX_POUR_GAGNER) {
+      return { nom: this.joueur1, jeux: this.jeuxJoueur1, jeuxAdversaire: this.jeuxJoueur2 };
+    }
+    if (this.jeuxJoueur2 === JEUX_POUR_GAGNER) {
+      return { nom: this.joueur2, jeux: this.jeuxJoueur2, jeuxAdversaire: this.jeuxJoueur1 };
+    }
+    return undefined;
   }
 
   private nouveauJeu(): Jeu {
