@@ -33,6 +33,10 @@ export class MatchEnUnSet {
     }
   }
 
+  score(): string {
+    return `${this.jeux()}, ${this.scoreDuJeu()}`;
+  }
+
   scoreDuJeu(): string {
     return this.jeuEnCours.score();
   }
