@@ -25,4 +25,16 @@ describe("Jeu", () => {
 
     expect(jeu.score()).toBe("Trente-Quinze");
   });
+
+  it("trois points s'annoncent Quarante", () => {
+    const jeu = new Jeu("Alice", "Bob");
+
+    jeu.pointPour("Alice");
+    jeu.pointPour("Bob");
+    jeu.pointPour("Alice");
+    jeu.pointPour("Bob");
+    jeu.pointPour("Alice");
+
+    expect(jeu.score()).toBe("Quarante-Trente");
+  });
 });
