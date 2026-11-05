@@ -77,4 +77,11 @@ describe("Match en un set", () => {
 
     expect(match.score()).toBe("Victoire Bob 4-1");
   });
+
+  it("on ne peut plus marquer de point une fois le match gagné", () => {
+    const match = new MatchEnUnSet("Alice", "Bob", new ClassementFactice());
+    gagnerDesJeux(match, "Alice", 4);
+
+    expect(() => match.pointPour("Bob")).toThrow("Le match est terminé");
+  });
 });
