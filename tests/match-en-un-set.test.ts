@@ -68,4 +68,13 @@ describe("Match en un set", () => {
 
     expect(match.score()).toBe("Victoire Alice 4-3");
   });
+
+  it("la victoire annonce d'abord les jeux du vainqueur", () => {
+    const match = new MatchEnUnSet("Alice", "Bob", new ClassementFactice());
+
+    gagnerDesJeux(match, "Alice", 1);
+    gagnerDesJeux(match, "Bob", 4);
+
+    expect(match.score()).toBe("Victoire Bob 4-1");
+  });
 });
