@@ -84,4 +84,12 @@ describe("Match en un set", () => {
 
     expect(() => match.pointPour("Bob")).toThrow("Le match est terminé");
   });
+
+  it("une fois le match gagné, le score du jeu reste celui du dernier jeu", () => {
+    const match = new MatchEnUnSet("Alice", "Bob", new ClassementFactice());
+
+    gagnerDesJeux(match, "Alice", 4);
+
+    expect(match.scoreDuJeu()).toBe("Victoire Alice");
+  });
 });
