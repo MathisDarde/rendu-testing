@@ -54,4 +54,13 @@ describe("Jeu", () => {
       expect(jeu.score()).toBe(scoreAttendu);
     },
   );
+
+  it("à Quarante partout, le score est Égalité", () => {
+    const jeu = new Jeu("Alice", "Bob");
+
+    marquer(jeu, "Alice", 3);
+    marquer(jeu, "Bob", 3);
+
+    expect(jeu.score()).toBe("Égalité");
+  });
 });
