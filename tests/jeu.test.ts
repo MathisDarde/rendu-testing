@@ -90,4 +90,10 @@ describe("Jeu", () => {
 
     expect(() => jeu.pointPour("Bob")).toThrow("Le match est terminé");
   });
+
+  it("marquer un point pour un joueur qui ne joue pas le match est refusé", () => {
+    const jeu = new Jeu("Alice", "Bob");
+
+    expect(() => jeu.pointPour("Charlie")).toThrow("Joueur inconnu : Charlie");
+  });
 });
