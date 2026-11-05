@@ -2,6 +2,16 @@ import { describe, expect, it } from "vitest";
 import { MatchEnUnSet } from "../src/match-en-un-set";
 import { ClassementFactice } from "./doubles/classement";
 
+function marquer(match: MatchEnUnSet, joueur: string, nombreDePoints: number): void {
+  for (let i = 0; i < nombreDePoints; i++) {
+    match.pointPour(joueur);
+  }
+}
+
+function gagnerDesJeux(match: MatchEnUnSet, joueur: string, nombreDeJeux: number): void {
+  marquer(match, joueur, 4 * nombreDeJeux);
+}
+
 // Dummy : le constructeur exige un classement, mais ces tests ne portent que
 // sur le score du match et le classement n'y joue aucun rôle. Un dummy suffit :
 // pas de valeur à renvoyer (stub) ni d'appel à vérifier (spy).
@@ -18,5 +28,14 @@ describe("Match en un set", () => {
     match.pointPour("Alice");
 
     expect(match.scoreDuJeu()).toBe("Quinze-Zéro");
+  });
+
+  it("gagner un jeu donne un jeu au vainqueur et en relance un nouveau", () => {
+    const match = new MatchEnUnSet("Alice", "Bob", new ClassementFactice());
+
+    gagnerDesJeux(match, "Alice", 1);
+
+    expect(match.jeux()).toBe("1-0");
+    expect(match.scoreDuJeu()).toBe("Zéro-Zéro");
   });
 });
