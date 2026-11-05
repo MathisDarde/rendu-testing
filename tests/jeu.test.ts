@@ -9,6 +9,14 @@ class ClassementFactice implements Classement {
   enregistrer(): void {}
 }
 
+class ClassementEspion implements Classement {
+  readonly enregistrements: { vainqueur: string; perdant: string }[] = [];
+
+  enregistrer(vainqueur: string, perdant: string): void {
+    this.enregistrements.push({ vainqueur, perdant });
+  }
+}
+
 function marquer(jeu: Jeu, joueur: string, nombreDePoints: number): void {
   for (let i = 0; i < nombreDePoints; i++) {
     jeu.pointPour(joueur);
@@ -103,5 +111,22 @@ describe("Jeu", () => {
     const jeu = new Jeu("Alice", "Bob", new ClassementFactice());
 
     expect(() => jeu.pointPour("Charlie")).toThrow("Joueur inconnu : Charlie");
+  });
+});
+
+describe("Jeu et classement du tournoi", () => {
+  // Spy : on veut vérifier, après le match, ce que le jeu a envoyé au
+  // classement. enregistrer() ne renvoie rien, donc un stub n'apporterait rien ;
+  // le spy note les appels et on fait les assertions à la fin, dans le test.
+  it("à la fin du match, le résultat est enregistré avec le vainqueur en premier", () => {
+    const classement = new ClassementEspion();
+    const jeu = new Jeu("Alice", "Bob", classement);
+
+    marquer(jeu, "Alice", 1);
+    marquer(jeu, "Bob", 4);
+
+    expect(classement.enregistrements).toEqual([
+      { vainqueur: "Bob", perdant: "Alice" },
+    ]);
   });
 });
