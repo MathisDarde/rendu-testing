@@ -1,4 +1,4 @@
-const ANNONCES = ["Zéro", "Quinze", "Trente"];
+const ANNONCES = ["Zéro", "Quinze", "Trente", "Quarante"];
 
 export class Jeu {
   private pointsJoueur1 = 0;
