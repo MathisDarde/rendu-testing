@@ -1,4 +1,5 @@
 const ANNONCES = ["Zéro", "Quinze", "Trente", "Quarante"];
+const QUARANTE = 3;
 
 export class Jeu {
   private pointsJoueur1 = 0;
@@ -18,7 +19,7 @@ export class Jeu {
   }
 
   score(): string {
-    if (this.pointsJoueur1 === 3 && this.pointsJoueur2 === 3) {
+    if (this.pointsJoueur1 === QUARANTE && this.pointsJoueur2 === QUARANTE) {
       return "Égalité";
     }
     if (this.pointsJoueur1 > 0 && this.pointsJoueur1 === this.pointsJoueur2) {
