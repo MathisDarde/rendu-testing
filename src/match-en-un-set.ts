@@ -17,7 +17,7 @@ export class MatchEnUnSet {
     private readonly joueur2: string,
     private readonly classement: Classement,
   ) {
-    this.jeuEnCours = new Jeu(joueur1, joueur2, new AucunClassement());
+    this.jeuEnCours = this.nouveauJeu();
   }
 
   pointPour(joueur: string): void {
@@ -29,7 +29,7 @@ export class MatchEnUnSet {
       this.jeuxJoueur2++;
     }
     if (vainqueurDuJeu) {
-      this.jeuEnCours = new Jeu(this.joueur1, this.joueur2, new AucunClassement());
+      this.jeuEnCours = this.nouveauJeu();
     }
   }
 
@@ -39,5 +39,9 @@ export class MatchEnUnSet {
 
   jeux(): string {
     return `${this.jeuxJoueur1}-${this.jeuxJoueur2}`;
+  }
+
+  private nouveauJeu(): Jeu {
+    return new Jeu(this.joueur1, this.joueur2, new AucunClassement());
   }
 }
