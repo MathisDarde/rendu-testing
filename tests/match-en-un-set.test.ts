@@ -38,4 +38,13 @@ describe("Match en un set", () => {
     expect(match.jeux()).toBe("1-0");
     expect(match.scoreDuJeu()).toBe("Zéro-Zéro");
   });
+
+  it("les jeux s'annoncent dans l'ordre joueur 1 puis joueur 2", () => {
+    const match = new MatchEnUnSet("Alice", "Bob", new ClassementFactice());
+
+    gagnerDesJeux(match, "Bob", 2);
+    gagnerDesJeux(match, "Alice", 1);
+
+    expect(match.jeux()).toBe("1-2");
+  });
 });
