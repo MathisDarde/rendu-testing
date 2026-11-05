@@ -1,6 +1,12 @@
 import { describe, expect, it } from "vitest";
 import { Jeu } from "../src/jeu";
 
+function marquer(jeu: Jeu, joueur: string, nombreDePoints: number): void {
+  for (let i = 0; i < nombreDePoints; i++) {
+    jeu.pointPour(joueur);
+  }
+}
+
 describe("Jeu", () => {
   it("le score initial est Zéro-Zéro", () => {
     const jeu = new Jeu("Alice", "Bob");
@@ -19,9 +25,8 @@ describe("Jeu", () => {
   it("les points s'annoncent dans l'ordre joueur 1 puis joueur 2", () => {
     const jeu = new Jeu("Alice", "Bob");
 
-    jeu.pointPour("Alice");
-    jeu.pointPour("Bob");
-    jeu.pointPour("Alice");
+    marquer(jeu, "Alice", 2);
+    marquer(jeu, "Bob", 1);
 
     expect(jeu.score()).toBe("Trente-Quinze");
   });
@@ -29,11 +34,8 @@ describe("Jeu", () => {
   it("trois points s'annoncent Quarante", () => {
     const jeu = new Jeu("Alice", "Bob");
 
-    jeu.pointPour("Alice");
-    jeu.pointPour("Bob");
-    jeu.pointPour("Alice");
-    jeu.pointPour("Bob");
-    jeu.pointPour("Alice");
+    marquer(jeu, "Alice", 3);
+    marquer(jeu, "Bob", 2);
 
     expect(jeu.score()).toBe("Quarante-Trente");
   });
