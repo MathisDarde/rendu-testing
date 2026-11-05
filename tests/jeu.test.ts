@@ -129,4 +129,29 @@ describe("Jeu et classement du tournoi", () => {
       { vainqueur: "Bob", perdant: "Alice" },
     ]);
   });
+
+  // Spy : ici on vérifie une absence d'appel. Le spy garde la trace de tous
+  // les appels reçus, ce qui permet de constater qu'il n'y en a eu aucun ;
+  // un dummy ne permettrait pas de le vérifier.
+  it("le résultat n'est pas enregistré tant que le match n'est pas fini", () => {
+    const classement = new ClassementEspion();
+    const jeu = new Jeu("Alice", "Bob", classement);
+
+    marquer(jeu, "Alice", 3);
+    marquer(jeu, "Bob", 3);
+
+    expect(classement.enregistrements).toEqual([]);
+  });
+
+  // Spy : on compte les appels reçus par le classement pendant tout le match,
+  // y compris quand on tente de marquer après la victoire. Seul un double qui
+  // enregistre les appels (spy) permet de vérifier qu'il n'y en a qu'un.
+  it("le résultat n'est enregistré qu'une seule fois", () => {
+    const classement = new ClassementEspion();
+    const jeu = new Jeu("Alice", "Bob", classement);
+    marquer(jeu, "Alice", 4);
+
+    expect(() => jeu.pointPour("Alice")).toThrow();
+    expect(classement.enregistrements).toHaveLength(1);
+  });
 });
